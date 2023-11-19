@@ -39,7 +39,7 @@ def imp_email_enviado():
     sleep(2)
     get_image('imp1', 4, 26, 110, 300, 400)
     sleep(3)
-    get_image('imp2', 9, 20, 490, 300, 250)
+    get_image('imp2', 9, 20, 400, 300, 360)
     sleep(6)
     cursor.write(f'C:\\Users\\{usu}\\OneDrive\\Documentos\\Emails\\1.pdf')
     sleep(0.5)
@@ -79,7 +79,7 @@ def anexar(qt):
         sleep(0.2)
     get_image('opcoes', 4, 650, 600, 350, 350)
     sleep(0.5)
-    (aux_x, aux_y) = get_pos_image('conf_leitura', 4)
+    (aux_x, aux_y) = get_pos_image('conf_leitura', 4, 200, 200, 600, 550)
     cursor.click(aux_x, aux_y)
     sleep(0.5)
     cursor.click(aux_x, aux_y + 30)
@@ -90,7 +90,7 @@ def anexar(qt):
 # função para buscar o arquivo senha de acesso salvo na pasta Emails
 def anexar_senha(np):
     usu = get_user()
-    get_image('anexar', 4, 718,150, 300, 200)
+    get_image('anexar', 4, 700,120, 300, 300)
     sleep(1)
     get_image('neste_pc', 4, 350, 180, 600, 400)
     #cursor.click(890, 250)
@@ -106,7 +106,7 @@ def anexar_senha(np):
 # função para buscar o ofício salvo na pasta Emails
 def anexar_oficio(np):
     usu = get_user()
-    get_image('anexar', 4, 718,150, 300, 200)
+    get_image('anexar', 4, 700,120, 300, 300)
     sleep(1)
     get_image('neste_pc', 4, 350, 180, 600, 400)
     #cursor.click(890, 250)
@@ -199,7 +199,7 @@ def get_pos_image(name_img, qtd_search, left, top, width, height, pause_yes= 0.5
                 print(f'chegou a {qtd_search} vez. Foi o limite estipulado')
                 resp = cursor.confirm(f'Procurei a imagem "{name_img}.png" por {qtd_search} vezes, sem sucesso! Por isso não sei sua posição.\n  Deseja  continuar? Se sim, primeiro minimize esta caixa de mensagem.\n Depois ative a tela que tem a imagem "{name_img}.pdf", e, por fim, restaure essa caixa e clique em "SIM"','Pergunta',buttons=('Sim', 'Não'))
                 if resp == 'Sim':
-                    pos_x, pos_y = cursor.locateCenterOnScreen(f'assets/{name_img}.png')
+                    pos_x, pos_y = cursor.locateCenterOnScreen(f'assets/{name_img}.png',confidence=0.8, region=(left, top, width, height))
                     break
                 else:
                     print('Escolheu nao, então encerrei a aplicação.')
@@ -587,30 +587,49 @@ def gerar_senha(num_proc, favorecido):
         sleep(1)
 
         (aux_x, aux_y) = get_pos_image('dow', 4, 100, 200,200,380)
+        print(f'o ponto do dow e {aux_x, aux_y}')
         #cursor.click(aux_x, aux_y + 18)
 
         get_image('dow', 1, 50, 300, 300, 300)
-        get_image('outros', 1, 50, 200, 250, 300)
+        get_image('outros', 1, 50, 250, 250, 400)
         sleep(1)
         cursor.hotkey('tab')
+        sleep(0.5)
         cursor.write(aux)
         sleep(1)
-        foto = cursor.screenshot(region = (aux_x+18, aux_y-15, 100, 15))
-        foto.save(f'C:\\Users\\{usu}\\OneDrive\\Documentos\\Emails\\foto - {favorecido}.pdf')
+        for i in range(15):
+            cursor.press('space')
+        foto = cursor.screenshot(region = (aux_x+14, aux_y-3, 50, 12))
+        #foto.save(f'C:\\Users\\{usu}\\OneDrive\\Documentos\\Emails\\foto - {favorecido}.pdf')
+        foto.save(f'assets/{favorecido}.png')
         cursor.hotkey('alt', 'g')
-
-
-
-    sleep(3)
-    #get_image('salvar',2, 80, 500, 300, 260)
-    sleep(2)
-    cursor.hotkey('alt', 'm')
-    if(exists_image('aviso',2, 200, 200, 200, 200)=='v'):
-        cursor.hotkey('alt', 'o')
-        sleep(1)
-        #cursor.hotkey('alt', 's')
-        sleep(1)
+        get_image('salvar', 2, 80, 500, 300, 260)
+        sleep(2)
         cursor.hotkey('alt', 'm')
+        sleep(5)
+        cursor.click(500, 350)
+        sleep(3)
+        cursor.click(500, 335)
+        sleep(3)
+        (fav_x, fav_y) = get_pos_image(favorecido, 4, 150, 200, 500, 550)
+        print(f'o centro do favorecido e {fav_x-45, fav_y}')
+        cursor.click(aux_x-10, aux_y)
+        print(f'o ponto  clicado foi {fav_x--45, fav_y}')
+
+
+
+
+'''
+sleep(3)
+    #get_image('salvar',2, 80, 500, 300, 260)
+    #sleep(2)
+    #cursor.hotkey('alt', 'm')
+    #if(exists_image('aviso',2, 200, 200, 200, 200)=='v'):
+        #cursor.hotkey('alt', 'o')
+        #sleep(1)
+        #cursor.hotkey('alt', 's')
+        #sleep(1)
+        #cursor.hotkey('alt', 'm')
 
     sleep(2)
     get_image('tic',1, 200,100, 250,250)
@@ -624,4 +643,8 @@ def gerar_senha(num_proc, favorecido):
     cursor.hotkey('s')
     sleep(2)
     get_image('fechar_senha', 2, 600, 100, 400, 300)
+
+
+'''
+
 

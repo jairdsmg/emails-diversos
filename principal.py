@@ -29,7 +29,7 @@ def janela_principal():
                   'Distribuidor', ['Distribuição de CP via Malote Digital', 'Devolução de CP via Malote Digital'],
                   'INSS',
                   'Perito',['Intimação de Nomeação',['Justiça Gratuita','Estimativa de Honorários'],
-                             'Cienficação de Expedição de MLE'],
+                             'Cienficação de Expedição de MLE', 'Início dos Trabalhos'],
                    ]],
 
         ['Cartas', ['Intimação', 'autor', 'reu', ['malo'], 'Citação']],
@@ -62,7 +62,7 @@ def janela_principal():
                #[sg.HorizontalSeparator()],
                [sg.Frame('Email', layout=layout_painel)],
                [sg.HorizontalSeparator()],
-               [sg.Text(' Pré-Requisitos ', size=(300, 1), font=('Arial', 18), text_color=('blue'))],
+               #[sg.Text(' Pré-Requisitos ', size=(300, 1), font=('Arial', 18), text_color=('blue'))],
                #[sg.HorizontalSeparator()],
                [sg.Frame('Preenchimentos obrigatórios', layout=layout_requisitos)],
                [sg.Button('Selecionar', size=(30, 1), button_color=('gray'))],
@@ -97,6 +97,8 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(70, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -140,6 +142,8 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='fls_dec', size=(10, 3), font=(18), visible=False)],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold')),
              sg.Input(key='nome_autor', size=(70, 2), font=(18))],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold')),
@@ -183,6 +187,8 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -197,6 +203,7 @@ def janela_scpc():
              sg.Radio('CPF:', 'tp_doc_reu', key='doc_cpf', font=('Arial', 14, 'bold'), visible=False),
              sg.Radio('CNPJ:', 'tp_doc_reu', key='doc_cnpj', default=True, font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='cnpj_reu', size=(22, 1), font=(18), visible=False)],
+
             [sg.Text('Contrato:            ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='num_contrato', size=(20, 1), font=(18), visible=False), sg.Text(' ', visible=False),
              sg.Text('Valor - R$', font=('Arial', 14, 'bold'), visible=False),
@@ -227,6 +234,8 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -271,13 +280,15 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
-            [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
-             sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
-            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
-             sg.Input(key='rg_autor', size=(20, 2), font=(18), visible=False), sg.Text('         ', visible=False),
-             sg.Radio('CPF:', 'tp_doc_autor', key='docm_cpf', default=True, font=('Arial', 14, 'bold'), visible=False),
-             sg.Radio('CNPJ:', 'tp_doc_autor', key='docm_cnpj', font=('Arial', 14, 'bold'), visible=False),
-             sg.Input(key='cpf_autor', size=(22, 2), font=(18), visible=False)],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=False)],
+            [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=True)],
+            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='rg_autor', size=(20, 2), font=(18), visible=True), sg.Text('         ', visible=False),
+             sg.Radio('CPF:', 'tp_doc_autor', key='docm_cpf', default=True, font=('Arial', 14, 'bold'), visible=True),
+             sg.Radio('CNPJ:', 'tp_doc_autor', key='docm_cnpj', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='cpf_autor', size=(22, 2), font=(18), visible=True)],
             [sg.Text('Requerido:         ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_reu', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -315,6 +326,8 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -359,6 +372,101 @@ def janela_scpc():
              sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
              sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
              sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
+            [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
+            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='rg_autor', size=(20, 2), font=(18), visible=False), sg.Text('         ', visible=False),
+             sg.Radio('CPF:', 'tp_doc_autor', key='docm_cpf', default=True, font=('Arial', 14, 'bold'), visible=False),
+             sg.Radio('CNPJ:', 'tp_doc_autor', key='docm_cnpj', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='cpf_autor', size=(22, 2), font=(18), visible=False)],
+            [sg.Text('Requerido:         ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='nome_reu', size=(70, 2), font=(18), visible=False)],
+            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='rg_reu', size=(20, 2), font=(18), visible=False), sg.Text('         ', visible=False),
+             sg.Radio('CPF:', 'tp_doc_reu', key='doc_cpf', font=('Arial', 14, 'bold'), visible=False),
+             sg.Radio('CNPJ:', 'tp_doc_reu', key='doc_cnpj', default=True, font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='cnpj_reu', size=(22, 1), font=(18), visible=False)],
+            [sg.Text('Contrato:            ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='num_contrato', size=(20, 1), font=(18), visible=False), sg.Text(' ', visible=False),
+             sg.Text('Valor - R$', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='valor_contrato', size=(12, 1), font=(18), visible=False), sg.Text('  ', visible=False),
+             sg.Text('Data:', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='data_contrato', size=(12, 1), font=(18), visible=False),
+             sg.Button(add, size=(5, 1), font=('Arial', 10, 'bold'), tooltip=('  Adicionar outro contrato  '),
+                       visible=False)],
+            [sg.HorizontalSeparator(color='black')],
+            # sg.Checkbox('Anexar Ofício', key='check_oficio', size=(70, 70),  font=('Arial', 12, 'bold')),
+            [sg.Checkbox('Anexar Senha de Acesso', key='check_senha', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Checkbox('Anexar Ofício', key='check_oficio', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Text('Qtd de Outros Anexos:', font=('Arial', 12, 'bold')),
+             sg.Spin([i for i in range(0, 11)], initial_value=1, size=(5, 10), key=('qtd'),
+                     font=(18))],
+            [sg.Checkbox('Imprimir após enviar', key='check_impressao', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Button('Enviar Email', size=(52, 1), disabled=(False), font=('Arial', 14, 'bold')),
+             sg.Button('Voltar', size=(20, 1), button_color=('gray'), font=('Arial', 14, 'bold'))],
+        ]
+
+    elif (codigo_email == 8):
+        lay = [
+            [sg.Button('Malote', size=(10, 1), button_color=('gray'))],
+
+            [sg.Text('Preencha apenas os campos do modelo escolhido', size=(300, 1), font=('Arial', 22, 'bold'),
+                     text_color=('red'))],
+            # [sg.HorizontalSeparator()],
+            [sg.Text('Num. Processo:', font=('Arial', 14, 'bold')), sg.Input(key='num_proc', size=(28, 3), font=(18)),
+             sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
+             sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
+             sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
+            [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
+            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='rg_autor', size=(20, 2), font=(18), visible=False), sg.Text('         ', visible=False),
+             sg.Radio('CPF:', 'tp_doc_autor', key='docm_cpf', default=True, font=('Arial', 14, 'bold'), visible=False),
+             sg.Radio('CNPJ:', 'tp_doc_autor', key='docm_cnpj', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='cpf_autor', size=(22, 2), font=(18), visible=False)],
+            [sg.Text('Requerido:         ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='nome_reu', size=(70, 2), font=(18), visible=False)],
+            [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='rg_reu', size=(20, 2), font=(18), visible=False), sg.Text('         ', visible=False),
+             sg.Radio('CPF:', 'tp_doc_reu', key='doc_cpf', font=('Arial', 14, 'bold'), visible=False),
+             sg.Radio('CNPJ:', 'tp_doc_reu', key='doc_cnpj', default=True, font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='cnpj_reu', size=(22, 1), font=(18), visible=False)],
+            [sg.Text('Contrato:            ', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='num_contrato', size=(20, 1), font=(18), visible=False), sg.Text(' ', visible=False),
+             sg.Text('Valor - R$', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='valor_contrato', size=(12, 1), font=(18), visible=False), sg.Text('  ', visible=False),
+             sg.Text('Data:', font=('Arial', 14, 'bold'), visible=False),
+             sg.Input(key='data_contrato', size=(12, 1), font=(18), visible=False),
+             sg.Button(add, size=(5, 1), font=('Arial', 10, 'bold'), tooltip=('  Adicionar outro contrato  '),
+                       visible=False)],
+            [sg.HorizontalSeparator(color='black')],
+            # sg.Checkbox('Anexar Ofício', key='check_oficio', size=(70, 70),  font=('Arial', 12, 'bold')),
+            [sg.Checkbox('Anexar Senha de Acesso', key='check_senha', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Checkbox('Anexar Ofício', key='check_oficio', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Text('Qtd de Outros Anexos:', font=('Arial', 12, 'bold')),
+             sg.Spin([i for i in range(0, 11)], initial_value=1, size=(5, 10), key=('qtd'),
+                     font=(18))],
+            [sg.Checkbox('Imprimir após enviar', key='check_impressao', size=(70, 70), font=('Arial', 12, 'bold'))],
+            [sg.Button('Enviar Email', size=(52, 1), disabled=(False), font=('Arial', 14, 'bold')),
+             sg.Button('Voltar', size=(20, 1), button_color=('gray'), font=('Arial', 14, 'bold'))],
+        ]
+    elif (codigo_email == 9):
+        lay = [
+            [sg.Button('Malote', size=(10, 1), button_color=('gray'))],
+
+            [sg.Text('Preencha apenas os campos do modelo escolhido', size=(300, 1), font=('Arial', 22, 'bold'),
+                     text_color=('red'))],
+            # [sg.HorizontalSeparator()],
+            [sg.Text('Num. Processo:', font=('Arial', 14, 'bold')), sg.Input(key='num_proc', size=(28, 3), font=(18)),
+             sg.Text('obrigatório', font=('Arial', 10), text_color=('red')),
+             sg.Text('             Decisão - Fls:', font=('Arial', 14, 'bold')),
+             sg.Input(key='fls_dec', size=(10, 3), font=(18))],
+            [sg.Text('E-mail:       ', font=('Arial', 14, 'bold'), visible=True),
+             sg.Input(key='email_dest', size=(40, 2), font=(18), visible=True)],
             [sg.Text('Requerente:       ', font=('Arial', 14, 'bold'), visible=False),
              sg.Input(key='nome_autor', size=(70, 2), font=(18), visible=False)],
             [sg.Text('RG:                       ', font=('Arial', 14, 'bold'), visible=False),
@@ -468,6 +576,20 @@ while True:
         janela1['req2'].update('Informar fls. da Decisão')
         janela1['req3'].update('Selecionar o campo "Anexar Senha de acesso", previamente salvo')
         codigo_email=7
+    elif window == janela1 and event == 'Cienficação de Expedição de MLE':
+        janela1['destinatario'].update(textos.get_email(8).__getitem__(0))
+        janela1['assunt'].update(textos.get_email(8).__getitem__(1))
+        janela1['texto_email'].update(textos.get_email(8).__getitem__(2))
+        janela1['req2'].update('Informar fls. da Decisão')
+        janela1['req3'].update('Selecionar o campo "Anexar Senha de acesso", previamente salvo')
+        codigo_email=8
+    elif window == janela1 and event == 'Início dos Trabalhos':
+        janela1['destinatario'].update(textos.get_email(9).__getitem__(0))
+        janela1['assunt'].update(textos.get_email(9).__getitem__(1))
+        janela1['texto_email'].update(textos.get_email(9).__getitem__(2))
+        janela1['req2'].update('Informar fls. da Decisão')
+        janela1['req3'].update('Selecionar o campo "Anexar Senha de acesso", previamente salvo')
+        codigo_email=9
 
     elif window == janela1 and event == 'Folha de Rosto':
         para = "nao se aplica"
@@ -507,6 +629,7 @@ while True:
         num_proc = values['num_proc']
         fls_dec = values['fls_dec']
         nome_autor = values['nome_autor']
+        email_dest = values['email_dest']
         rg_autor = values['rg_autor']
         docm_cpf = values['docm_cpf']
         docm_cnpj = values['docm_cnpj']
@@ -539,7 +662,11 @@ while True:
             print('falso')
 
         sleep(0.5)
-        cursor.write(textos.get_email(codigo_email).__getitem__(0))
+        if (codigo_email == 6 or codigo_email == 7 or codigo_email == 8 ):
+            cursor.write(email_dest)
+        else:
+            cursor.write(textos.get_email(codigo_email).__getitem__(0))
+        #cursor.write(textos.get_email(codigo_email).__getitem__(0))
         sleep(0.5)
         #cursor.press("enter")
         sleep(0.1)
@@ -586,12 +713,14 @@ while True:
             pyperclip.copy('Com meus cumprimentos, intimo Vossa Senhoria acerca de sua nomeação nos autos acima mencionados, para que manifeste se aceita o encargo, ciente de que os honorários periciais serão suportados exclusivamente pela Defensoria Pública conforme Decisão de fls. '+fls_dec)
         elif (codigo_email == 7):
             pyperclip.copy('Com meus cumprimentos, intimo Vossa Senhoria acerca de sua nomeação nos autos acima mencionados, para que estime seus honorários nos termos da Decisão de fls. '+fls_dec)
+        elif (codigo_email == 8):
+            pyperclip.copy('Com meus cumprimentos, cientifico Vossa Senhoria de que houve a expedição de MLE em seu favor, referente aos autos acima mencionados, não havendo necessidade de comparecimento em cartório, uma vez que os valores foram/serão depositados na conta informada no processo.')
         cursor.hotkey('ctrl', 'v')
         sleep(0.3)
 
         cursor.press('enter')
         cursor.press('enter')
-        cursor.write('Att,')
+        cursor.write('Att.')
 
         #contratos.pop()
         if senha == 1:
@@ -619,7 +748,7 @@ while True:
         else:
             print('nao marcou a impressao')
         sleep(2)
-        diversos.digitalizar(num_proc, '724', '1')
+        #diversos.digitalizar(num_proc, '724', '1')
     #janela1.un_hide()
 
 exit()
